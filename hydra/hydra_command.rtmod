@@ -1,0 +1,33 @@
+module {
+  name        = "hydra_command"
+  description = "default nmap scan"
+  image       = "hydra/hydra.Containerfile"
+  tags        = ["cracking"]
+}
+
+input "args" {
+  type        = list(string)
+  description = "the args to pass to the hydra command"
+  example     = ["-h"]
+}
+
+exec "command" "hydra" {
+  command = cli::args("hydra", input.args)
+}
+
+output "result" {
+  type        = string
+  description = "the scan results"
+  example     = <<-EOT
+    Some output
+  EOT
+
+  value = exec.command.hydra.stdout
+}
+
+output "exit_code" {
+  type        = number
+  description = "the exit code"
+  example     = 0
+  value       = exec.command.hydra.exit_code
+}
