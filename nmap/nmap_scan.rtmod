@@ -43,7 +43,7 @@ output "result" {
 
 output "exit_code" {
   type        = number
-  description = "the exit code
+  description = "the exit code"
   example     = 0
   value       = exec.command.scan.exit_code
 }
